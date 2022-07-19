@@ -1,0 +1,58 @@
+<div>
+	<p-table #dt [columns]="columns" [value]="carsData" [paginator]="true" [rows]="10" [(selection)]="selectedCar1"
+		dataKey="vin">
+		<ng-template pTemplate="caption">
+
+			<div style="text-align:right">
+				<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+				<input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+
+            </div>
+		</ng-template>
+
+		<ng-template pTemplate="header" let-columns>
+			<tr>
+				<th *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+					{{col.header}}
+				</th>
+			</tr>
+		</ng-template>
+		<ng-template  pTemplate="body" let-rowData let-columns="columns">
+			<tr [pSelectableRow]="rowData">
+				<td *ngFor="let col of columns" class="ui-resizable-column">
+            <a href="#" [pRowToggler]="rowData">
+              	{{rowData[col.field]}}           
+                </a>
+				</td>
+			</tr>
+		</ng-template>
+
+     <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+        <tr>
+            <td [attr.colspan]="columns.length + 1">
+                <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+                    <div class="ui-g-12 ui-md-3" style="text-align:center">
+                        <img [attr.alt]="rowData.brand" src="assets/showcase/images/demo/car/{{rowData.brand}}.png">
+                    </div>
+                    <div class="ui-g-12 ui-md-9">
+                        <div class="ui-g">
+                            <div class="ui-g-12">
+                                <b>Vin:</b> {{rowData.vin}}
+                            </div>
+                            <div class="ui-g-12">
+                                <b>Year:</b> {{rowData.year}}
+                            </div>
+                            <div class="ui-g-12">
+                                <b>Brand:</b> {{rowData.brand}}
+                            </div>
+                            <div class="ui-g-12">
+                                <b>Color:</b> {{rowData.color}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+	</p-table>
+</div>
